@@ -1,0 +1,10 @@
+# Exclusion BIEN FORMÉE pour la règle lab-exe-appdata.
+# Chaque valeur désigne un binaire précis par son chemin complet de fin :
+# difficile à usurper (il faudrait écrire au bon endroit le bon nom complet).
+target: lab-exe-appdata
+name: known_good_appdata_apps
+filter:
+  Image|endswith:
+    - '\Slack\slack.exe'
+    - '\Zoom\bin\Zoom.exe'
+    - '\Microsoft\Teams\Update.exe'

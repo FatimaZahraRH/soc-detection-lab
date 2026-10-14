@@ -1,0 +1,25 @@
+title: rundll32 appelant une DLL non standard (détournement / porte dérobée)
+id: lab-rundll32-backdoor
+status: experimental
+description: >
+  rundll32 exécutant une fonction exportée d'une DLL hors des emplacements
+  système habituels, ou netcat (nc.exe) : indicateurs d'un détournement de DLL
+  et d'une communication de commande et contrôle.
+references:
+  - https://attack.mitre.org/techniques/T1574/001/
+tags:
+  - attack.defense_evasion
+  - attack.t1574.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  rundll32:
+    Image|endswith: '\rundll32.exe'
+    CommandLine|contains:
+      - 'CreateBackdoor'
+      - 'windowscoredeviceinfo.dll'
+  netcat:
+    Image|endswith: '\nc.exe'
+  condition: rundll32 or netcat
+level: high

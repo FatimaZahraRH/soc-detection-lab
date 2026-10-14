@@ -1,0 +1,22 @@
+title: Contournement d'UAC via WScript et flux de données alternatif (ADS)
+id: lab-wscript-ads
+status: experimental
+description: >
+  cmd lance wscript depuis un flux de données alternatif NTFS (chemin de la
+  forme ...AppData:xxxx). Signe d'un contournement d'UAC / masquage.
+references:
+  - https://attack.mitre.org/techniques/T1548/002/
+tags:
+  - attack.privilege_escalation
+  - attack.defense_evasion
+  - attack.t1548.002
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    CommandLine|contains: 'wscript.exe'
+  ads:
+    CommandLine|contains: 'AppData:'
+  condition: selection and ads
+level: high

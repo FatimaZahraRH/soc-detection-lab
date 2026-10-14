@@ -1,0 +1,25 @@
+title: Exécution via WMIC depuis une copie shadow (VSS)
+id: lab-wmic-vss
+status: experimental
+description: >
+  wmic process call create pointant sur un volume shadow (GLOBALROOT /
+  HarddiskVolumeShadowCopy) : exécution depuis une sauvegarde VSS, souvent pour
+  contourner les protections.
+references:
+  - https://attack.mitre.org/techniques/T1047/
+tags:
+  - attack.execution
+  - attack.t1047
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\WMIC.exe'
+    CommandLine|contains: 'process call create'
+  selection_vss:
+    CommandLine|contains:
+      - 'GLOBALROOT'
+      - 'HarddiskVolumeShadowCopy'
+  condition: selection and selection_vss
+level: high

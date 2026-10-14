@@ -1,0 +1,13 @@
+# CONTRE-EXEMPLE — à NE PAS appliquer. Audité pour la démonstration.
+# Façon tentante mais dangereuse de réduire le bruit de la règle lab-exe-appdata :
+# exclure par simple nom de fichier. Un attaquant n'a qu'à nommer son binaire
+# « update.exe » et le placer dans AppData pour ne plus être détecté.
+# L'audit (scripts/run.py, section 5) doit classer ces exclusions en risque élevé.
+target: lab-exe-appdata
+name: broad_appdata_BAD
+filter:
+  Image|endswith:
+    - 'update.exe'
+    - 'setup.exe'
+  Image|contains:
+    - '\AppData\Roaming\'
